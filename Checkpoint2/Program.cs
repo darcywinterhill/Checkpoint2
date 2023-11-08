@@ -1,5 +1,6 @@
 ﻿
 using Checkpoint2;
+using System.Runtime.InteropServices;
 
 List<Product> productList = new List<Product>();
 
@@ -41,6 +42,16 @@ while (true)
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Produkten lades till");
     Console.ResetColor();
+}
+
+Console.WriteLine("-------------------------------------------------------------------------");
+Console.ForegroundColor = ConsoleColor.DarkMagenta;
+Console.WriteLine("Kategori".PadRight(15) + "Produktnamn".PadRight(15) + "Pris");
+Console.ResetColor();
+
+foreach (Product product in productList)
+{
+    Console.WriteLine(product.Print());
 }
 
 Console.ReadLine();

@@ -15,7 +15,7 @@ namespace Checkpoint2
 
         public string Print()
         {
-            return Category.PadRight(10) + ProductName.PadRight(10) + Price;
+            return Category.PadRight(15) + ProductName.PadRight(15) + Price;
         }
     }
 
