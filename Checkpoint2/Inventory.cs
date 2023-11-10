@@ -11,13 +11,13 @@
             Products = new List<Product>();
         }
 
-        //method to sort list by price, low - high
+        //Method to sort list by price, low - high
         public List<Product> SortList()
         {
             return Products.OrderBy(product => product.Price).ToList();
         }
 
-        //method to summarize product prices
+        //Method to summarize product prices
         public int SummarizeProducts()
         {
             return Products.Sum(product => product.Price);

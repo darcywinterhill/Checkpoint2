@@ -14,7 +14,7 @@
         public int Price { get; set; }
 
 
-        public string Print()
+        public string Print() //Prints product info
         {
             return Category.PadRight(20) + ProductName.PadRight(20) + Price;
         }
