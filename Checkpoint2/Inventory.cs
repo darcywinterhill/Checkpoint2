@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Checkpoint2
+﻿namespace Checkpoint2
 
 //Holds a list with all products
 {
@@ -18,13 +12,13 @@ namespace Checkpoint2
         }
 
         //method to sort list by price, low - high
-        public List<Product> sortList()
+        public List<Product> SortList()
         {
             return Products.OrderBy(product => product.Price).ToList();
         }
 
         //method to summarize product prices
-        public int summarizeProducts()
+        public int SummarizeProducts()
         {
             return Products.Sum(product => product.Price);
         }

@@ -1,6 +1,4 @@
-﻿
-using Checkpoint2;
-using System.Runtime.InteropServices;
+﻿using Checkpoint2;
 
 //Product list / inventory
 Inventory myInventory = new Inventory();
@@ -13,23 +11,46 @@ while (true)
     Console.WriteLine("Registrera en produkt genom att följa stegen | Avsluta genom att skriva Q");
     Console.ResetColor();
 
-    Console.Write("Kategori: "); //Category input - quit if entering 'q'
+    //Category input
+    Console.Write("Kategori: "); 
     string category = Console.ReadLine();
 
-    if (category.ToLower().Trim() == "q")
+    if (category.ToLower().Trim() == "q") //Quit if entering 'q'
     {
         break;
     }
 
-    Console.Write("Produktnamn: "); //Product name input - quit if entering 'q'
+    bool isCategoryEmpty = string.IsNullOrEmpty(category); //Error message if empty
+    while (isCategoryEmpty)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Ange kategori: ");
+        Console.ResetColor();
+        category = Console.ReadLine();
+        isCategoryEmpty = string.IsNullOrEmpty(category);
+    }
+
+    //Product name input
+    Console.Write("Produktnamn: "); 
     string productName = Console.ReadLine();
 
-    if (productName.ToLower().Trim() == "q")
+    if (productName.ToLower().Trim() == "q") //Quit if entering q
     {
         break;
     }
 
-    Console.Write("Pris (heltal): "); //Price input
+    bool isProductEmpty = string.IsNullOrEmpty(productName); //Error message if empty
+    while (isProductEmpty)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Ange produktnamn: ");
+        Console.ResetColor();
+        productName = Console.ReadLine();
+        isProductEmpty = string.IsNullOrEmpty(productName);
+    }
+
+    //Price input
+    Console.Write("Pris (heltal): "); 
     int price;
     while (!int.TryParse(Console.ReadLine(), out price))
     {
@@ -51,8 +72,8 @@ Console.ForegroundColor = ConsoleColor.DarkMagenta; //Header for display table
 Console.WriteLine("Kategori".PadRight(20) + "Produktnamn".PadRight(20) + "Pris");
 Console.ResetColor();
 
-List<Product> sortedList = myInventory.sortList(); //List sorted from smallest to largest price
-int sumOfProducts = myInventory.summarizeProducts(); //Summarize the price
+List<Product> sortedList = myInventory.SortList(); //List sorted from smallest to largest price
+int sumOfProducts = myInventory.SummarizeProducts(); //Summarize the price
 
 //Display registered products in a sorted list with the total sum
 foreach (Product product in sortedList)
