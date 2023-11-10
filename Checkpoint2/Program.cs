@@ -3,7 +3,7 @@
 //Product list / inventory
 Inventory myInventory = new Inventory();
 
-//Adding user input to product list
+//* Adding user input to product list
 while (true)
 {
     Console.WriteLine("-------------------------------------------------------------------------");
@@ -11,8 +11,8 @@ while (true)
     Console.WriteLine("Registrera en produkt genom att följa stegen | Avsluta genom att skriva Q");
     Console.ResetColor();
 
-    //Category input
-    Console.Write("Kategori: "); 
+    //** Category input
+    Console.Write("Kategori: ");
     string category = Console.ReadLine();
 
     if (category.ToLower().Trim() == "q") //Quit if entering 'q'
@@ -20,18 +20,18 @@ while (true)
         break;
     }
 
-    bool isCategoryEmpty = string.IsNullOrEmpty(category); //Error message if empty
+    bool isCategoryEmpty = string.IsNullOrWhiteSpace(category); //Error message if empty
     while (isCategoryEmpty)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write("Ange kategori: ");
         Console.ResetColor();
         category = Console.ReadLine();
-        isCategoryEmpty = string.IsNullOrEmpty(category);
+        isCategoryEmpty = string.IsNullOrWhiteSpace(category);
     }
 
-    //Product name input
-    Console.Write("Produktnamn: "); 
+    //** Product name input
+    Console.Write("Produktnamn: ");
     string productName = Console.ReadLine();
 
     if (productName.ToLower().Trim() == "q") //Quit if entering q
@@ -39,32 +39,46 @@ while (true)
         break;
     }
 
-    bool isProductEmpty = string.IsNullOrEmpty(productName); //Error message if empty
+    bool isProductEmpty = string.IsNullOrWhiteSpace(productName); //Error message if empty
     while (isProductEmpty)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.Write("Ange produktnamn: ");
         Console.ResetColor();
         productName = Console.ReadLine();
-        isProductEmpty = string.IsNullOrEmpty(productName);
+        isProductEmpty = string.IsNullOrWhiteSpace(productName);
     }
 
-    //Price input
-    Console.Write("Pris (heltal): "); 
-    int price;
-    while (!int.TryParse(Console.ReadLine(), out price))
+    //** Price input
+    Console.Write("Pris (heltal): ");
+    string userInput = Console.ReadLine();
+
+    if (userInput.ToLower().Trim() == "q") // Exit the loop and end the program
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("Ange pris (heltal): ");
+        break; 
+    }
+
+    bool isInt = int.TryParse(userInput, out int price); //Error message if input is not integer
+    if (!isInt)
+    {
+        while (!isInt)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Ange pris (heltal): ");
+            Console.ResetColor();
+            userInput = Console.ReadLine();
+            isInt = int.TryParse(userInput, out price);
+        }
+    }
+
+    if (isInt) //Add  product to list
+    {
+        myInventory.Products.Add(new Product(category, productName, price));
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Produkten lades till");
         Console.ResetColor();
     }
-
-    //Add new product to product list
-    myInventory.Products.Add(new Product(category, productName, price));
-
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("Produkten lades till");
-    Console.ResetColor();
 }
 
 Console.WriteLine("-------------------------------------------------------------------------");
@@ -75,7 +89,7 @@ Console.ResetColor();
 List<Product> sortedList = myInventory.SortList(); //List sorted from smallest to largest price
 int sumOfProducts = myInventory.SummarizeProducts(); //Summarize the price
 
-//Display registered products in a sorted list with the total sum
+//* Display registered products in a sorted list with the total sum
 foreach (Product product in sortedList)
 {
     Console.WriteLine(product.Print());

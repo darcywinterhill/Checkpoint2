@@ -13,11 +13,10 @@
         public string ProductName { get; set; }
         public int Price { get; set; }
 
-    
+
         public string Print()
         {
             return Category.PadRight(20) + ProductName.PadRight(20) + Price;
         }
     }
-
 }
