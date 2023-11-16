@@ -61,16 +61,14 @@ while (true) //Simple loop to make it possible to add another product after pres
         }
 
         bool isInt = int.TryParse(priceInput, out int price); //Error message if input is not integer
-        if (!isInt)
+
+        while (!isInt)
         {
-            while (!isInt)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Ange pris (heltal): ");
-                Console.ResetColor();
-                priceInput = Console.ReadLine();
-                isInt = int.TryParse(priceInput, out price);
-            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Ange pris (heltal): ");
+            Console.ResetColor();
+            priceInput = Console.ReadLine();
+            isInt = int.TryParse(priceInput, out price);
         }
 
         if (isInt) //Add  product to list if price input is integer
@@ -86,9 +84,9 @@ while (true) //Simple loop to make it possible to add another product after pres
     //* Display registered products in a sorted list with the total sum
     List<Product> sortedList = myInventory.SortList(); //List sorted from smallest to largest price
     int sumOfProducts = myInventory.SummarizeProducts(); //Summarize the price
-    
+
     Console.WriteLine("-------------------------------------------------------------------------"); //Header for display table
-    Console.ForegroundColor = ConsoleColor.DarkMagenta; 
+    Console.ForegroundColor = ConsoleColor.DarkMagenta;
     Console.WriteLine("Kategori".PadRight(20) + "Produktnamn".PadRight(20) + "Pris");
     Console.ResetColor();
 
@@ -99,6 +97,6 @@ while (true) //Simple loop to make it possible to add another product after pres
     Console.WriteLine();
     Console.WriteLine("".PadRight(20) + "Totalsumma:".PadRight(20) + sumOfProducts);
 
+    Console.ReadLine();
 }
 
-Console.ReadLine();
